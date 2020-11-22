@@ -2,7 +2,7 @@ let modInfo = {
   name: 'The Colors Tree',
   id: 'idlecolors',
   author: 'Xearta',
-  pointsName: 'colors',
+  pointsName: 'points',
   discordName: '',
   discordLink: '',
   changelogLink:
@@ -14,7 +14,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-  num: '0.0',
+  num: '0.0.1',
   name: 'Literally nothing',
 };
 
@@ -28,7 +28,7 @@ function getStartPoints() {
 
 // Determines if it should show points/sec
 function canGenPoints() {
-  return true;
+  return hasUpgrade('p', 11);
 }
 
 // Calculate points/sec!
@@ -36,6 +36,7 @@ function getPointGen() {
   if (!canGenPoints()) return new Decimal(0);
 
   let gain = new Decimal(1);
+  if (hasUpgrade('p', 12)) gain = gain.times(upgradeEffect('p', 12));
   return gain;
 }
 
@@ -45,7 +46,7 @@ function addedPlayerData() {
 }
 
 // Display extra things at the top of the page
-var displayThings = [];
+var displayThings = ['Endgame: e280000000 points'];
 
 // Determines when the game "ends"
 function isEndgame() {
